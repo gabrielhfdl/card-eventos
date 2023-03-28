@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "trabalho_1_ufsc",
+    "slug": "snack-2ae6d9d8-a339-4ea4-861c-26c296c6b7e5",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splashimage.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3680EE"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3680EE"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
