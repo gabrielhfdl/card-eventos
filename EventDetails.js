@@ -6,8 +6,7 @@ import { SocialIcon } from 'react-native-elements'
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('screen');
 import { SizedBox } from 'sizedbox';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class EventDetailsScreen extends React.Component {
     static navigationOptions = {
@@ -33,13 +32,10 @@ export default class EventDetailsScreen extends React.Component {
             video: evento.video,
             ingresso: evento.ingresso,
             foto_evento1: evento.foto_evento1,
-            foto_evento2: evento.foto_evento2
-
-
-
+            foto_evento2: evento.foto_evento2,
+            evento: evento
         };
     }
-
 
     render() {
 
@@ -69,8 +65,23 @@ export default class EventDetailsScreen extends React.Component {
             Linking.openURL(`${facebook}`);
         }
 
+
+        async function saveFavorite() {
+            var jsonList = []
+            try {
+                const value = await AsyncStorage.getItem('favorite_list');
+                if (value != null) jsonList = JSON.parse(value);
+            } catch (e) {
+                console.log(e);
+            }
+            jsonList.push(evento)
+            AsyncStorage.setItem('favorite_list', JSON.stringify(jsonList));
+
+        }
+
         const { navigate } = this.props.navigation;
-        const { nome, imagem, email, telefone, latitude, longitude, valor, local, data, hora, video, ingresso, facebook, foto_evento1, foto_evento2 } = this.state;
+        const { nome, imagem, email, telefone, latitude, longitude, valor,
+            local, data, hora, video, ingresso, facebook, foto_evento1, foto_evento2, evento } = this.state;
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -85,6 +96,12 @@ export default class EventDetailsScreen extends React.Component {
                     </TouchableOpacity>
 
                     <View>
+                        <TouchableOpacity style={styles.buttonFavorite} onPress={saveFavorite}>
+                            <Text style={styles.textButtonStyle}>Salvar favorito</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
                         <Text style={styles.videoTitle}> Relembre: </Text>
                         <YoutubeIframe
                             height={200}
@@ -92,16 +109,19 @@ export default class EventDetailsScreen extends React.Component {
                         />
                     </View>
 
-
-
                     <View>
                         <Text style={styles.videoTitle}> Fotos de edições anteriores: </Text>
-                        <View style={{ width: width * 0.9, display: "flex", flexDirection: "row", flexWrap: "wrap", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
-                            <Image source={{ uri: imagem }} style={{ width: "45%", height: 200 }} />
+                        <View style={{
+                            width: width * 0.8,
+                            display: "flex",
+                            flexDirection: "row",
+
+                        }}>
+                            <Image source={{ uri: foto_evento2 }} style={{ width: "30%", height: 200 }} />
 
                             <SizedBox horizontal={10} />
 
-                            <Image source={{ uri: foto_evento1 }} style={{ width: "45%", height: 200 }} />
+                            <Image source={{ uri: foto_evento1 }} style={{ width: "30%", height: 200 }} />
 
                         </View>
 
@@ -147,6 +167,18 @@ const styles = StyleSheet.create({
     legendStyle: {
         fontSize: 12,
         fontWeight: 'semi-bold',
+
+    },
+
+    buttonFavorite: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 18,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: 'red',
+        marginTop: 15,
+        marginBottom: 15,
 
     },
 

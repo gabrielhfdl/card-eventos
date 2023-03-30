@@ -5,12 +5,14 @@ import EventListScreen from './EventList'
 
 import HomeScreen from './Home'
 import EventDetailsScreen from './EventDetails';
+import FavoritEventsScreen from './FavoriteEvents';
 
 const MainNavigator = createStackNavigator({
+
   Home: { screen: HomeScreen },
   EventList: { screen: EventListScreen },
-  EventDetails: { screen: EventDetailsScreen }
-
+  EventDetails: { screen: EventDetailsScreen },
+  FavoriteEvents: { screen: FavoritEventsScreen }
 
 });
 

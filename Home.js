@@ -17,11 +17,16 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View>
+          <TouchableOpacity style={styles.exitButton} onPress={() => navigate('FavoriteEvents',)}>
+            <Text style={styles.exitText}> VER EVENTOS FAVORITOS </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View>
           <TouchableOpacity style={styles.exitButton} onPress={() => BackHandler.exitApp()}>
             <Text style={styles.exitText}> SAIR </Text>
           </TouchableOpacity>
         </View>
-
 
       </View>
     );
