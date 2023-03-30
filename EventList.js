@@ -22,8 +22,7 @@ export default class EventListScreen extends React.Component {
                     this.setState({
                         isLoading: false,
                         eventos: json["eventos"],
-                    }, function () {
-                    });
+                    },);
                 })
                 .catch((error) => {
                     console.error(error);
